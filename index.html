@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatXng</title>
+    <!-- Link to the Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src ="app.js"></script>
+    <script src = "viewManager.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+<div class="container mx-auto p-4 h-screen">
+    <h1 class="text-3xl font-semibold mb-4">ChatXng - Chat Interface</h1>
+    <nav>
+        <ul class = "flex space-x-4 rounded bg-gray-800 mb-3 p-2">
+            <li ><a class = "hover:bg-blue-600 rounded" id = "homeLink" href="#">Home</a></li>
+            <li><a class = "hover:bg-blue-600 rounded" id = "helpLink" href="#">Help</a></li>
+            <li><a class = "hover:bg-blue-600 rounded" id = "settingsLink" href="#">Settings</a></li>
+        </ul>
+    </nav>
+    <div id = "homeView">
+        <h1 class = "text-3xl text-center mb-2">Chat</h1>
+        <div class="bg-gray-800 rounded-lg p-4 h-80 overflow-y-auto">
+            <!-- Chat messages container -->
+            <div id="chat-messages" class="flex flex-col space-y-2">
+                <!-- Chat messages will be dynamically added here using JavaScript -->
+            </div>
+        </div>
+        <div class="mt-4 flex">
+            <input type="text" id="user-input" class="flex-1 p-2 rounded-l-lg bg-gray-800 text-white border-2 border-gray-700 focus:outline-none focus:border-blue-400" placeholder="Type your message...">
+            <button id="send-button" class="px-4 py-2 rounded-r-lg bg-blue-500 hover:bg-blue-600 focus:outline-none">Send</button>
+        </div>
+    </div>
+    <div id="settingsView">
+        <h1 class="text-3xl text-center mb-2">Settings</h1>
+        <div class="p-4 bg-gray-800 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">API Settings</h2>
+            <div class="mb-4">
+                <label for="api-key" class="block text-gray-400">API Key:</label>
+                <input type="text" id="api-key" class="w-full p-2 bg-gray-700 text-white rounded" placeholder="Enter your API key">
+            </div>
+            <button id="save-api-key" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded text-white focus:outline-none">Save API Key</button>
+            <button id="download-conversation" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded text-white focus:outline-none mt-2">Download Conversation</button>
+        </div>
+    </div>
+
+    <div id="helpView" class="hidden">
+        <div class="container mx-auto p-4 h-screen">
+            <h1 class="text-3xl font-semibold mb-4">ChatXng - Help</h1>
+            <div class="p-4 bg-gray-800 rounded-lg">
+                <h2 class="text-xl font-semibold mb-2">Getting Started</h2>
+                <p>Welcome to ChatXng! Here's a quick guide to help you get started with our application:</p>
+                <ul class="list-disc ml-6">
+                    <li>Go to settings and set your api key to access the chat features.</li>
+                    <li>Click on the "Home" link to initiate a conversation with ChatGPT.</li>
+                    <li>Use the message input field to type your messages and click "Send" to send them.</li>
+
+                </ul>
+            </div>
+            <div class="p-4 bg-gray-800 rounded-lg mt-4">
+                <h2 class="text-xl font-semibold mb-2">FAQ (Frequently Asked Questions)</h2>
+                <ul class="list-disc ml-6">
+                    <li>How does ChatXng work?</li>
+                    <li>Is my data and chat history secure?</li>
+
+                </ul>
+            </div>
+            <div class="p-4 bg-gray-800 rounded-lg mt-4">
+                <h2 class="text-xl font-semibold mb-2">Contact Us</h2>
+                <p>If you have any further questions, feel free to reach out:</p>
+                <p>Email: chat@xng.me</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
