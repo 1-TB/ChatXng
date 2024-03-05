@@ -6,11 +6,13 @@ $(document).ready(function () {
   const modelList = ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"];
   const $modelSelector = $("#model-selector");
   let modelSelection = modelList[0];
+
   let messagesArry = [];
+
   populateModels();
   $modelSelector.on("change", (event) => {
     modelSelection = event.target.value;
-   console.log("Model changed to "+modelSelection)
+    console.log("Model changed to " + modelSelection);
   });
 
   class Message {
@@ -40,52 +42,30 @@ $(document).ready(function () {
       $modelSelector.append(option);
     });
   }
-
-  // function appendMessage(sender, message) {
-  //   //if sender is user then the text is blue, if not its green
-  //   const messageClass =
-  //     sender === "user"
-  //       ? "text-right text-blue-400"
-  //       : "text-left text-green-400";
-  //   //create the element
-  //   let messageHTML = "";
-  //   // If no triple backticks found, render it as a regular message
-  //   messageHTML = `
-  //           <div class="${messageClass}">${escapeHtml(message)}</div>
-  //       `;
-
-  //   //create a message and add it to our array
-  //   let thisMessage = new Message();
-  //   thisMessage.role = sender;
-  //   thisMessage.content = message;
-  //   if (sender !== "webclient") {
-  //     messagesArry.push(thisMessage);
-  //   }
-
-  //   //add the element we just made to the chatMessages div
-  //   $chatMessages.append(messageHTML);
-
-  //   // Scroll to the bottom of the chat container to show the latest message
-  //   $chatMessages.scrollTop($chatMessages[0].scrollHeight);
-  // }
   function appendMessage(sender, message) {
     // Define classes for the chat bubble appearance
-    const userMessageClass = "bg-blue-400 text-white rounded-lg rounded-br-none";
-    const otherMessageClass = "bg-green-400 text-white rounded-lg rounded-bl-none";
+    const userMessageClass =
+      "bg-blue-400 text-white rounded-lg rounded-br-none";
+    const otherMessageClass =
+      "bg-green-400 text-white rounded-lg rounded-bl-none";
 
     // Determine the alignment and bubble color based on the sender
     const messageAlignmentClass =
-        sender === "user"
-            ? `text-right ${userMessageClass}`
-            : `text-left ${otherMessageClass}`;
+      sender === "user"
+        ? `text-right ${userMessageClass}`
+        : `text-left ${otherMessageClass}`;
 
-    // Escape HTML to prevent XSS attacks
-    const escapedMessage = escapeHtml(message);
+    let escapedMessage = marked.parse(message);
+    if (sender === "user") {
+      escapedMessage = escapeHtml(message);
+    }
 
     // Create the chat bubble element
     let messageHTML = `
-        <div class="flex ${sender === 'user' ? 'justify-end' : 'justify-start'} my-2">
-            <div class="${messageAlignmentClass} px-4 py-2 max-w-xs lg:max-w-md break-words">
+        <div class="flex ${
+          sender === "user" ? "justify-end" : "justify-start"
+        } my-2">
+            <div class="${messageAlignmentClass} px-4 py-2 max-w-4xl break-words">
                 ${escapedMessage}
             </div>
         </div>
@@ -97,14 +77,14 @@ $(document).ready(function () {
           </div>
       `;
       messageHTML += modelInfoHTML;
-  }
+    }
 
     // Create a message object and add it to our array
     let thisMessage = new Message();
     thisMessage.role = sender;
     thisMessage.content = message;
     if (sender !== "webclient") {
-        messagesArry.push(thisMessage);
+      messagesArry.push(thisMessage);
     }
 
     // Add the element we just made to the chatMessages div
@@ -112,18 +92,17 @@ $(document).ready(function () {
 
     // Scroll to the bottom of the chat container to show the latest message
     $chatMessages.scrollTop($chatMessages[0].scrollHeight);
+  }
 
-  
-}
   function escapeHtml(text) {
     const element = document.createElement("div");
     element.innerText = text;
     return element.innerHTML;
   }
+
   function sendAPIRequest() {
     const apiKey = localStorage.getItem("api_key");
-    //const apiKey = "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"; // Replace with your actual API key
-    const apiUrl = "https://api.openai.com/v1/chat/completions"; // Replace with the appropriate API endpoint
+    const apiUrl = "https://api.openai.com/v1/chat/completions";
     if (apiKey != null || apiKey !== "") {
       const requestData = {
         model: "gpt-3.5-turbo",
